@@ -1,0 +1,76 @@
+body {
+	margin: 0px;
+	padding: 5px;
+}
+
+.container {
+	width: 100%;
+}
+
+.container input[type='button'] {
+	background-color: #f9f9f5;
+	border: 1px solid #c6c6c6;
+}
+
+.container input[type='button'].active {
+	background-color: #9a8d8d;
+	color: #FFFFFF;
+}
+
+.container .container-body {
+	width: 100%;
+	height: calc(100% - 145px);
+	border: 2px solid #c6c6c6;
+	box-sizing: border-box;
+}
+
+.container .container-body canvas {
+	width:100%;
+	height:100%; 
+}
+
+.container .container-tools {
+	width: 100%;
+}
+
+.container .container-tools .tools {
+	width: 100%;
+	height: 30px;
+	padding: 4px;
+	border: 1px solid #c6c6c6;
+	box-sizing: border-box;
+	margin: -1px 0px 0px 0px;
+}
+
+.container .container-tools .tools input[type='text'] {
+	width: 30px;
+}
+
+.container .container-tools .tools .container-button {
+	display: inline-block;
+	float: left;
+	margin: 0px 0px 0px 10px;
+}
+
+.container .container-tools .tools .container-label {
+	font-weight: bold;
+	border-right: 1px solid #c6c6c6;
+	padding: 0px 4px 0px 0px;
+	width: 50px;
+}
+
+.container .container-tools .tools .color-palatte {
+	float: left;
+	width: 900px;
+	border-left: 1px solid #c6c6c6;
+	margin: 0px 0px 0px 10px;
+}
+
+.container .container-tools .tools .color-palatte a.color {
+    height: 15px;
+    width: 15px;
+    border: 1px solid #c6c6c6;
+    display: block;
+    float: left;
+    margin: 4px;    
+}

@@ -1,0 +1,113 @@
+<html>
+
+	<head>
+	    <link rel="stylesheet" type="text/css" href="css/style.css">
+	    <script type="text/javascript" src="lib/jquery.min.js"></script>
+	    <script type="text/javascript" src="lib/fabric.min.js"></script>	    
+	</head>
+
+	<body>
+	    <div class="container">
+	        <div class="container-tools">
+	            <div class="tools extra">
+	            	<label class="container-button container-label">Tools: </label>
+	                <div class="container-button">
+	                    <input id="selection" type="button" value="Selection" />
+	                </div>
+	                <div class="container-button">
+	                    <input type="button" value="Cut" />
+	                </div>
+	                <div class="container-button">
+	                    <input type="button" value="Copy" />
+	                </div>
+	                <div class="container-button">
+	                    <input type="button" value="Paste" />
+	                </div>
+	                <div class="container-button">
+	                    <input type="button" value="Paste" />
+	                </div>
+	                <div class="container-button">
+	                    <input type="file" value="Image" />
+	                </div>
+	            </div>
+	            <div class="tools shaps">
+	            	<label class="container-button container-label">Shaps: </label>
+	                <div class="container-button">
+	                    <input id="circle" type="button" value="Circle" />
+	                </div>
+	                <div class="container-button">
+	                    <input id="oval" type="button" value="Oval" />
+	                </div>
+	                <div class="container-button">
+	                    <input id="rect" type="button" value="Rectangle" />
+	                </div>
+	                <div class="container-button">
+	                    <input id="line" type="button" value="Line" />
+	                </div>
+	                <div class="container-button">
+	                    <input id="pencil" type="button" value="Pencil" />
+	                </div>
+	            </div>
+	            <div class="tools stroke">
+	            	<label class="container-button container-label">Stroke: </label>
+	                <div class="container-button">
+	                    <input type="button" value="Stroke 1" />
+	                </div>
+	                <div class="container-button">
+	                    <input type="button" value="Stroke 2" />
+	                </div>
+	                <div class="container-button">
+	                    <input type="button" value="Stroke 3" />
+	                </div>
+	                <div class="container-button">
+	                    <input type="button" value="Stroke 4" />
+	                </div>
+	            </div>
+	            <div class="tools Text">
+	            	<label class="container-button container-label">Text: </label>
+	                <div class="container-button">
+	                    <input type="text" value="11" />
+	                </div>
+	                <div class="container-button">
+	                    <input type="button" value="Add Text" />
+	                </div>
+	                <div class="container-button">
+	                    <input type="button" value="B" />
+	                </div>
+	                <div class="container-button">
+	                    <input type="button" value="I" />
+	                </div>
+	                <div class="container-button">
+	                    <input type="button" value="U" />
+	                </div>
+	            </div>
+	            <div class="tools Color">
+	            	<label class="container-button container-label">Colors: </label>
+	            	<div class="container-button">
+	                    <input type="button" value="Color 1" />
+	                </div>
+	                <div class="container-button">
+	                    <input type="button" value="Color 2" />
+	                </div>
+	                <div class="color-palatte">
+	                	<a class="color" href="javascript:;" data-color="#FFFFFF" style="background-color:#FFFFFF"></a>
+	                	<a class="color" href="javascript:;" data-color="#FF0000" style="background-color:#FF0000"></a>
+	                	<a class="color" href="javascript:;" data-color="#FF00FF" style="background-color:#FF00FF"></a>
+	                	<a class="color" href="javascript:;" data-color="#00FF00" style="background-color:#00FF00"></a>
+	                	<a class="color" href="javascript:;" data-color="#00FFFF" style="background-color:#00FFFF"></a>
+	                	<a class="color" href="javascript:;" data-color="#0000FF" style="background-color:#0000FF"></a>
+	                	<a class="color" href="javascript:;" data-color="#FFFF00" style="background-color:#FFFF00"></a>
+	                	<a class="color" href="javascript:;" data-color="#F0F0F0" style="background-color:#F0F0F0"></a>
+	                	<a class="color" href="javascript:;" data-color="#000000" style="background-color:#000000"></a>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="container-body">
+	            <canvas width="1200px" height="490px" id="canvas"></canvas>
+	        </div>
+	    </div>
+
+	    <script type="text/javascript" src="js/canvas.js"></script>
+	</body>
+
+</html>
