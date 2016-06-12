@@ -25,8 +25,6 @@ $(function() {
 		objectNotSelected = true;
 	});
 
-	console.log(canvas)
-
 	function getCoordinates() {
 		canvas
 		.on('mouse:down', function(o) {
@@ -140,29 +138,99 @@ $(function() {
 		canvas.isDrawingMode = true;
 	}
 
+	var updateStroke = function(obj) {
+		var activeObj = canvas.getActiveObject();
+
+		if (!obj) {
+			obj = 1;
+		}
+
+		strokeWidth = parseInt(obj, 10);
+
+		if (activeObj) {
+			activeObj.set({ strokeWidth: strokeWidth });
+		}
+
+		canvas.renderAll();
+	}
+
+	var updateColor = function(colorType, selectedColor) {
+		var activeObj = canvas.getActiveObject();
+		if (colorType === 'color2') {
+			//change background color
+			color2 = selectedColor;
+			$('.selectedColor2').css('background-color', color2);
+
+			if (activeObj) {
+				activeObj.set({ fill: color2 });
+			}
+		} else {
+			//change stroke color
+			color1 = selectedColor;
+			$('.selectedColor1').css('background-color', color1);
+
+			if (activeObj) {
+				activeObj.set({ stroke: color1 });
+			}
+		}
+
+		canvas.renderAll();
+	}
+
+	var makeActive = function (parentObj, currentObj) {
+		$(parentObj).find('input[type="button"]').removeClass('active');
+		$(currentObj).addClass('active');
+	}
+
+	//default function
+	createPencil();
+
+	//set selected color
+	$('.selectedColor1').css('background-color', color1);
+	$('.selectedColor2').css('background-color', color2);
+
 
 	/* events */
 	$('#rect').click(function() {
 		createRectangle();
+		makeActive('.shaps', this);
 	});
 
 	$('#circle').click(function() {
 		createCircle();
+		makeActive('.shaps', this);
 	});
 
 	$('#oval').click(function() {
 		createOval();
+		makeActive('.shaps', this);
 	});
 
 	$('#line').click(function() {
 		createLine();
+		makeActive('.shaps', this);
 	});
 
 	$('#pencil').click(function() {
 		createPencil();
+		makeActive('.shaps', this);
+	});
+
+	$('.strokeWidth').unbind('click').click(function() {
+		updateStroke($(this).attr('data-sw'));
+		makeActive('.stroke', this);
+	});
+
+	$('.colorBtn').unbind('click').click(function() {
+		makeActive('.ColorBox', this);
+	});
+
+	$('.color').unbind('click').click(function() {
+		updateColor($('.colorBtn.active').attr('data-type'), $(this).attr('data-color'));
 	});
 
 	$("#selection").click(function() {
 		currentObj= {};
+		canvas.isDrawingMode = false;
 	});
 });

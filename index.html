@@ -24,7 +24,7 @@
 	                    <input type="button" value="Paste" />
 	                </div>
 	                <div class="container-button">
-	                    <input type="button" value="Paste" />
+	                    <input type="button" value="Delete" />
 	                </div>
 	                <div class="container-button">
 	                    <input type="file" value="Image" />
@@ -45,22 +45,22 @@
 	                    <input id="line" type="button" value="Line" />
 	                </div>
 	                <div class="container-button">
-	                    <input id="pencil" type="button" value="Pencil" />
+	                    <input class="active" id="pencil" type="button" value="Pencil" />
 	                </div>
 	            </div>
 	            <div class="tools stroke">
 	            	<label class="container-button container-label">Stroke: </label>
 	                <div class="container-button">
-	                    <input type="button" value="Stroke 1" />
+	                    <input class="strokeWidth" data-sw="1" type="button" value="Stroke 1" />
 	                </div>
 	                <div class="container-button">
-	                    <input type="button" value="Stroke 2" />
+	                    <input class="strokeWidth active" data-sw="2" type="button" value="Stroke 2" />
 	                </div>
 	                <div class="container-button">
-	                    <input type="button" value="Stroke 3" />
+	                    <input class="strokeWidth" data-sw="4" type="button" value="Stroke 3" />
 	                </div>
 	                <div class="container-button">
-	                    <input type="button" value="Stroke 4" />
+	                    <input class="strokeWidth" data-sw="6" type="button" value="Stroke 4" />
 	                </div>
 	            </div>
 	            <div class="tools Text">
@@ -81,13 +81,13 @@
 	                    <input type="button" value="U" />
 	                </div>
 	            </div>
-	            <div class="tools Color">
+	            <div class="tools ColorBox">
 	            	<label class="container-button container-label">Colors: </label>
 	            	<div class="container-button">
-	                    <input type="button" value="Color 1" />
+	                    <input class="colorBtn floatLeft active" data-type="color1" type="button" value="Color 1" /><span class="selectedColor1"></span>
 	                </div>
 	                <div class="container-button">
-	                    <input type="button" value="Color 2" />
+	                    <input class="colorBtn floatLeft" data-type="color2" type="button" value="Color 2" /><span class="selectedColor2"></span>
 	                </div>
 	                <div class="color-palatte">
 	                	<a class="color" href="javascript:;" data-color="#FFFFFF" style="background-color:#FFFFFF"></a>

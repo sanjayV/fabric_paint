@@ -3,6 +3,10 @@ body {
 	padding: 5px;
 }
 
+.floatLeft {
+	float: left;
+}
+
 .container {
 	width: 100%;
 }
@@ -59,6 +63,21 @@ body {
 	width: 50px;
 }
 
+.container .container-tools .tools.ColorBox .colorBtn {
+	border-right: 0px;
+}
+
+.container .container-tools .tools.ColorBox .selectedColor1,
+.container .container-tools .tools.ColorBox .selectedColor2 {
+    width: 15px;
+    border: 1px solid #c6c6c6;
+    display: block;
+    float: left;
+    padding: 0px;
+    margin: 0px;
+    height: 17px;
+}
+
 .container .container-tools .tools .color-palatte {
 	float: left;
 	width: 900px;
@@ -72,5 +91,5 @@ body {
     border: 1px solid #c6c6c6;
     display: block;
     float: left;
-    margin: 4px;    
+    margin: 4px;
 }
