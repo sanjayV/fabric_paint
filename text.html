@@ -1,0 +1,32 @@
+<html>
+
+	<head>
+	    <script type="text/javascript" src="lib/jquery.min.js"></script>
+	    <script type="text/javascript" src="lib/fabric.min.js"></script>
+	    <style type="text/css">
+	    .canvas-wrappter {
+		    position: relative;
+		}
+		canvas {
+		    border: 1px solid #000;
+		}
+		.itext {
+		    width: 300px;
+		    background: transparent;
+		    position: absolute;
+		    z-index: 2;
+		}
+
+	    </style>
+	</head>
+
+	<body>
+	    <div class="canvas-wrapper">
+		    <canvas id="canvas" width="500" height="500"></canvas>
+		</div>
+		<input type="button" value="Add Text" id="text">
+
+	    <script type="text/javascript" src="js/text.js"></script>
+	</body>
+
+</html>

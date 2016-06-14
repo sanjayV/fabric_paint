@@ -1,8 +1,10 @@
 $(function() {
 	var canvas = new fabric.Canvas('canvas', 
 			{ 
-				'selectionColor': 'rgba(100, 100, 255, 0.1)', 
-				'selectionLineWidth': 0.5,
+				'selectionColor': 'rgba(100, 100, 255, 0)', 
+				'selectionLineWidth': 1,
+				'selectionBorderColor': 'rgba(100, 100, 255, 1)',
+				'selectionDashArray': [5, 5],
 				'isDrawingMode': false
 			}
 		),
@@ -152,6 +154,16 @@ $(function() {
 		}
 
 		canvas.renderAll();
+	}
+
+	var addText = function() {
+		currentObj['type'] = 'text';
+		currentObj['fun'] = addText;
+		currentObj['obj'] = new fabric.Line(points, {
+			stroke: color1,
+			fill: color2,
+			strokeWidth: strokeWidth
+		});
 	}
 
 	var updateColor = function(colorType, selectedColor) {
