@@ -10,8 +10,11 @@ $(function() {
 		),
 		color1 = '#FF00FF',
 		color2 = '#FFFFFF',
+		fontSize = parseInt($('#fontSize').val(), 10),
+		defaultText = "Add your font here",
 		strokeWidth = 2,
 		objectNotSelected = true,
+		selectedFontWeight = 'normal',
 		mouseDown = false,
 		currentObj = {},
 		startPoints = {},
@@ -38,6 +41,8 @@ $(function() {
 			if (Object.keys(currentObj).length) {
 				if (currentObj['type'] === 'pencil') {
 					canvas.isDrawingMode = true;
+				} else if (currentObj['type'] === 'text') {
+					currentObj['obj'].set({ left : startPoints.x, top: startPoints.y });
 				} else {
 					canvas.isDrawingMode = false;
 					if (currentObj['type'] === 'line') {
@@ -77,11 +82,17 @@ $(function() {
 		})
 		.on('mouse:up', function(o) {
 			endPoints = o.e;
-			mouseDown = false;
 
 			if (Object.keys(currentObj).length && currentObj['type'] && currentObj['type'] !== 'pencil') {
+				if (currentObj['type'] === 'text' && mouseDown && objectNotSelected) {
+					canvas.add(currentObj['obj']);
+					canvas.renderAll();
+				}
+
 				currentObj['fun']();
 			}
+
+			mouseDown = false;
 		});
 	}
 
@@ -157,17 +168,31 @@ $(function() {
 	}
 
 	var addText = function() {
+		canvas.isDrawingMode = false;
 		currentObj['type'] = 'text';
 		currentObj['fun'] = addText;
-		currentObj['obj'] = new fabric.Line(points, {
+		currentObj['obj'] = new fabric.IText(defaultText, {
 			stroke: color1,
 			fill: color2,
-			strokeWidth: strokeWidth
+			fontWeight: selectedFontWeight,
+			//strokeWidth: strokeWidth,
+			fontSize: fontSize
 		});
 	}
 
+	var updateTextStyle = function(style) {
+		var activeObj = getSelectedObj();
+		if (activeObj && activeObj.get('type') === 'i-text') {
+			if (style = 'bold') {
+				activeObj.set({ 'fontWeight': style });
+			}
+		}
+
+		canvas.renderAll();
+	}
+
 	var updateColor = function(colorType, selectedColor) {
-		var activeObj = canvas.getActiveObject();
+		var activeObj = getSelectedObj();
 		if (colorType === 'color2') {
 			//change background color
 			color2 = selectedColor;
@@ -189,8 +214,14 @@ $(function() {
 		canvas.renderAll();
 	}
 
+	var getSelectedObj = function() {
+		return canvas.getActiveObject();
+	}
+
 	var makeActive = function (parentObj, currentObj) {
-		$(parentObj).find('input[type="button"]').removeClass('active');
+		if (parentObj) {
+			$(parentObj).find('input[type="button"]').removeClass('active');
+		}
 		$(currentObj).addClass('active');
 	}
 
@@ -226,6 +257,16 @@ $(function() {
 	$('#pencil').click(function() {
 		createPencil();
 		makeActive('.shaps', this);
+	});
+
+	$('#addText').click(function() {
+		addText();
+		makeActive('.text-add', this);
+	});
+
+	$("#bold, #italic, #underLine").click(function (){
+		updateTextStyle($(this).attr('data-type'));
+		makeActive('', this);
 	});
 
 	$('.strokeWidth').unbind('click').click(function() {
