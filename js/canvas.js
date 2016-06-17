@@ -14,7 +14,9 @@ $(function() {
 		defaultText = "Add your font here",
 		strokeWidth = 2,
 		objectNotSelected = true,
-		selectedFontWeight = 'normal',
+		fontWeight = 'normal',
+		textDecoration = '',
+		fontStyle = 'normal',
 		mouseDown = false,
 		currentObj = {},
 		startPoints = {},
@@ -174,18 +176,68 @@ $(function() {
 		currentObj['obj'] = new fabric.IText(defaultText, {
 			stroke: color1,
 			fill: color2,
-			fontWeight: selectedFontWeight,
+			fontWeight: fontWeight,
+			textDecoration: textDecoration,
+			fontStyle: fontStyle,
 			//strokeWidth: strokeWidth,
 			fontSize: fontSize
 		});
 	}
 
-	var updateTextStyle = function(style) {
+	var updateFontSize = function (val) {
 		var activeObj = getSelectedObj();
+		fontSize = parseInt(val, 10);
+
 		if (activeObj && activeObj.get('type') === 'i-text') {
-			if (style = 'bold') {
-				activeObj.set({ 'fontWeight': style });
-			}
+			activeObj.set({ 'fontSize': fontSize });
+		}
+
+		canvas.renderAll();
+	}
+
+	var updateFontWeight = function (styleObj) {
+		var activeObj = getSelectedObj();
+		var style = styleObj.attr('data-activeType');
+
+		if (!styleObj.hasClass('active')) {
+			style = styleObj.attr('data-inActiveType');
+		}
+
+		if (activeObj && activeObj.get('type') === 'i-text') {
+			fontWeight = style;
+			activeObj.set({ 'fontWeight': style });
+		}
+
+		canvas.renderAll();
+	}
+
+	var updateFontStyle = function (styleObj) {
+		var activeObj = getSelectedObj();
+		var style = styleObj.attr('data-activeType');
+
+		if (!styleObj.hasClass('active')) {
+			style = styleObj.attr('data-inActiveType');
+		}
+
+		if (activeObj && activeObj.get('type') === 'i-text') {
+			fontStyle = style;
+			activeObj.set({ 'fontStyle': style });
+		}
+
+		canvas.renderAll();
+	}
+
+	var updateTextDecoration = function (styleObj) {
+		var activeObj = getSelectedObj();
+		var style = styleObj.attr('data-activeType');
+
+		if (!styleObj.hasClass('active')) {
+			style = styleObj.attr('data-inActiveType');
+		}
+
+		if (activeObj && activeObj.get('type') === 'i-text') {
+			textDecoration = style;
+			activeObj.set({ 'textDecoration': style });
 		}
 
 		canvas.renderAll();
@@ -218,11 +270,16 @@ $(function() {
 		return canvas.getActiveObject();
 	}
 
-	var makeActive = function (parentObj, currentObj) {
+	var makeActive = function (parentObj, currentObj, inActiveFlag) {
 		if (parentObj) {
 			$(parentObj).find('input[type="button"]').removeClass('active');
 		}
-		$(currentObj).addClass('active');
+
+		if (inActiveFlag !== undefined && $(currentObj).hasClass('active')) {
+			$(currentObj).removeClass('active');
+		} else {
+			$(currentObj).addClass('active');
+		}
 	}
 
 	//default function
@@ -259,14 +316,32 @@ $(function() {
 		makeActive('.shaps', this);
 	});
 
+	$("#fontSize").bind('keyup blur', function(e) {
+	    if(e.keyCode == 13 || e.type == 'blur') {
+	    	if (!isNaN($(this).val())) {
+	        	updateFontSize($(this).val());
+	        }
+	    }
+	});
+
 	$('#addText').click(function() {
 		addText();
 		makeActive('.text-add', this);
 	});
 
-	$("#bold, #italic, #underLine").click(function (){
-		updateTextStyle($(this).attr('data-type'));
-		makeActive('', this);
+	$("#bold").click(function () {
+		makeActive('', this, true);
+		updateFontWeight($(this));
+	});
+
+	$("#italic").click(function () {
+		makeActive('', this, true);
+		updateFontStyle($(this));
+	});
+
+	$("#underLine").click(function () {
+		makeActive('', this, true);
+		updateTextDecoration($(this));
 	});
 
 	$('.strokeWidth').unbind('click').click(function() {

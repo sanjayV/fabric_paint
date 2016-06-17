@@ -50,6 +50,10 @@ body {
 	width: 30px;
 }
 
+.container .container-tools .tools input[type='number'] {
+	width: 50px;
+}
+
 .container .container-tools .tools .container-button {
 	display: inline-block;
 	float: left;
