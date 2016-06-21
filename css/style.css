@@ -11,9 +11,23 @@ body {
 	width: 100%;
 }
 
-.container input[type='button'] {
+.container input[type='button'],
+.container a {
 	background-color: #f9f9f5;
 	border: 1px solid #c6c6c6;
+}
+
+.container a {
+    box-sizing: border-box;
+    padding: 1px 6px;
+    cursor: default;
+    color: buttontext;
+    align-items: flex-start;
+    text-align: center;
+    text-decoration: none;
+    margin: 0em 0em 0em 0em;
+    display: inline-block;
+    font: 13.3333px Arial;
 }
 
 .container input[type='button'].active {
