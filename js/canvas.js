@@ -4,7 +4,8 @@ $(function() {
             'selectionLineWidth': 1,
             'selectionBorderColor': 'rgba(100, 100, 255, 1)',
             'selectionDashArray': [5, 5],
-            'isDrawingMode': false
+            'isDrawingMode': false,
+            'backgroundColor': 'rgb(255,255,255)'
         }),
         copiedObject,
         copiedObjects = new Array(),
@@ -452,6 +453,14 @@ $(function() {
         }
     }
 
+    var saveImage = function (e) {
+        e.href = canvas.toDataURL({
+            format: 'jpg',
+            quality: 1
+        });
+        e.download = 'canvas.jpg'
+    }
+
     //default function
     createPencil();
 
@@ -489,6 +498,10 @@ $(function() {
 
     $('#seToBack').click(function() {
         bringToFrontBack(false);
+    });
+
+    $('#save').click(function() {
+        saveImage(this);
     });
 
     $('#rect').click(function() {
