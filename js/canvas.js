@@ -272,39 +272,46 @@ $(function() {
     }
 
     var createRectangle = function() {
+        makeActive('.selection');
         canvas.isDrawingMode = false;
         currentObj['type'] = 'rect';
         currentObj['fun'] = createRectangle;
         currentObj['obj'] = new fabric.Rect({
             stroke: color1,
             fill: color2,
-            strokeWidth: strokeWidth
+            strokeWidth: strokeWidth,
+            selectable: false
         });
     }
 
     var createCircle = function() {
+        makeActive('.selection');
         canvas.isDrawingMode = false;
         currentObj['type'] = 'circle';
         currentObj['fun'] = createCircle;
         currentObj['obj'] = new fabric.Circle({
             stroke: color1,
             fill: color2,
-            strokeWidth: strokeWidth
+            strokeWidth: strokeWidth,
+            selectable: false
         });
     }
 
     var createOval = function() {
+        makeActive('.selection');
         canvas.isDrawingMode = false;
         currentObj['type'] = 'oval';
         currentObj['fun'] = createOval;
         currentObj['obj'] = new fabric.Ellipse({
             stroke: color1,
             fill: color2,
-            strokeWidth: strokeWidth
+            strokeWidth: strokeWidth,
+            selectable: false
         });
     }
 
     var createLine = function() {
+        makeActive('.selection');
         canvas.isDrawingMode = false;
         var points = [];
         currentObj['type'] = 'line';
@@ -312,11 +319,13 @@ $(function() {
         currentObj['obj'] = new fabric.Line(points, {
             stroke: color1,
             fill: color2,
-            strokeWidth: strokeWidth
+            strokeWidth: strokeWidth,
+            selectable: false
         });
     }
 
     var createPencil = function() {
+        makeActive('.selection');
         canvas.freeDrawingBrush = new fabric['PencilBrush'](canvas);
         canvas.freeDrawingBrush.color = color1;
         canvas.freeDrawingBrush.width = strokeWidth;
@@ -341,6 +350,7 @@ $(function() {
     }
 
     var addText = function() {
+        makeActive('.selection');
         canvas.isDrawingMode = false;
         currentObj['type'] = 'text';
         currentObj['fun'] = addText;
@@ -351,7 +361,8 @@ $(function() {
             textDecoration: textDecoration,
             fontStyle: fontStyle,
             //strokeWidth: strokeWidth,
-            fontSize: fontSize
+            fontSize: fontSize,
+            selectable: false
         });
     }
 
@@ -442,15 +453,29 @@ $(function() {
     }
 
     var makeActive = function(parentObj, currentObj, inActiveFlag) {
-        if (parentObj) {
+        if (parentObj && (!inActiveFlag || inActiveFlag == undefined)) {
             $(parentObj).find('input[type="button"]').removeClass('active');
         }
 
-        if (inActiveFlag !== undefined && $(currentObj).hasClass('active')) {
-            $(currentObj).removeClass('active');
-        } else {
-            $(currentObj).addClass('active');
+        if (currentObj && currentObj !== undefined) {
+            if (inActiveFlag !== undefined && $(currentObj).hasClass('active')) {
+                $(currentObj).removeClass('active');
+            } else {
+                $(currentObj).addClass('active');
+            }
         }
+    }
+
+    var makeSelectableEnable = function() {
+        canvas.getObjects().map(function(o) {
+            return o.set('selectable', true);
+        });
+    }
+
+    var makeSelectableDisable = function() {
+        canvas.getObjects().map(function(o) {
+            return o.set('selectable', false);
+        });
     }
 
     var saveImage = function (e) {
@@ -505,26 +530,31 @@ $(function() {
     });
 
     $('#rect').click(function() {
+        makeSelectableDisable();
         createRectangle();
         makeActive('.shaps', this);
     });
 
     $('#circle').click(function() {
+        makeSelectableDisable();
         createCircle();
         makeActive('.shaps', this);
     });
 
     $('#oval').click(function() {
+        makeSelectableDisable();
         createOval();
         makeActive('.shaps', this);
     });
 
     $('#line').click(function() {
+        makeSelectableDisable();
         createLine();
         makeActive('.shaps', this);
     });
 
     $('#pencil').click(function() {
+        makeSelectableDisable();
         createPencil();
         makeActive('.shaps', this);
     });
@@ -538,6 +568,7 @@ $(function() {
     });
 
     $('#addText').click(function() {
+        makeSelectableDisable();
         addText();
         makeActive('.text-add', this);
     });
@@ -571,7 +602,10 @@ $(function() {
     });
 
     $("#selection").click(function() {
+        makeActive('.selection', '#selection');
+        makeActive('.shaps');
         currentObj = {};
+        makeSelectableEnable();
         canvas.isDrawingMode = false;
     });
 });
