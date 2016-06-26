@@ -23,7 +23,10 @@ $(function() {
         startPoints = {},
         movingPoints = {},
         endPoints = {},
-        rect;
+        canvasMinHeight = 300,
+        canvasMinWidth = 600,
+        w = 0,
+        h = 0;
 
     canvas.on('object:selected', function() {
         objectNotSelected = false;
@@ -110,6 +113,14 @@ $(function() {
 
     getCoordinates();
     document.onkeydown = onKeyDownHandler;
+
+    var setCanvasHW = function (width, height) {
+        w = (width > canvasMinWidth) ? width : canvasMinWidth;
+        h = (height > canvasMinHeight) ? height : canvasMinHeight;
+        canvas.setWidth(w);
+        canvas.setHeight(h);
+        canvas.calcOffset();
+    }
 
     /* image upload */
     var imageUpload = function(obj) {
@@ -353,6 +364,8 @@ $(function() {
 
         if (activeObj) {
             activeObj.set({ strokeWidth: strokeWidth });
+        } else if (canvas.isDrawingMode && canvas.isDrawingMode === true) {
+            createPencil();
         }
 
         canvas.renderAll();
@@ -451,6 +464,8 @@ $(function() {
 
             if (activeObj) {
                 activeObj.set({ stroke: color1 });
+            } else if (canvas.isDrawingMode && canvas.isDrawingMode === true) {
+                createPencil();
             }
         }
 
@@ -497,6 +512,7 @@ $(function() {
 
     //default function
     createPencil();
+    setCanvasHW($('.container-body').width(), $('.container-body').height());
 
     //set selected color
     $('.selectedColor1').css('background-color', color1);
@@ -504,6 +520,10 @@ $(function() {
 
 
     /* events */
+    $(window).resize(function() {
+        setCanvasHW($('.container-body').width(), $('.container-body').height());
+    });
+
     $('#imageUpload').change(function(e) {
     	imageUpload(e);
     	currentObj = {};
