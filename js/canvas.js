@@ -65,6 +65,15 @@ $(function() {
                 if (Object.keys(currentObj).length && currentObj['type'] && currentObj['type'] !== 'pencil') {
                     canvas.isDrawingMode = false;
                     movingPoints = canvas.getPointer(o.e);
+                    if (currentObj['type'] === 'rect' || currentObj['type'] === 'circle' || currentObj['type'] === 'oval') {
+                        if ((movingPoints.x - startPoints.x) < 0) {
+                            currentObj['obj'].set({ left: startPoints.x + (movingPoints.x - startPoints.x) });
+                        }
+
+                        if ((movingPoints.y - startPoints.y) < 0) {
+                            currentObj['obj'].set({ top: startPoints.y + (movingPoints.y - startPoints.y) });
+                        }
+                    }
 
                     if (currentObj['type'] === 'rect') {
                         currentObj['obj'].set({ width: Math.abs(movingPoints.x - startPoints.x), height: Math.abs(movingPoints.y - startPoints.y) });
